@@ -14,6 +14,85 @@ dayjs.extend(relativeTime)
 function CommentListItem(props) {
   let comment = store.comments[props.index()]
 
+  function getCodeLanguage(code) {
+    let elements = [
+      code,
+      code.parentElement,
+      code.closest('.astro-code'),
+      code.closest('[data-language]'),
+      code.closest('[class*="language-"]'),
+      code.closest('[class*="lang-"]')
+    ].filter(Boolean)
+
+    for (let element of elements) {
+      if (element.dataset?.language) {
+        return element.dataset.language
+      }
+
+      for (let className of element.classList || []) {
+        if (className.startsWith('language-')) {
+          return className.slice('language-'.length)
+        }
+
+        if (className.startsWith('lang-')) {
+          return className.slice('lang-'.length)
+        }
+      }
+    }
+
+    return ''
+  }
+
+  async function copyCodeFromComment(event) {
+    let button = event.target.closest('.cwgi-copy-code-button')
+
+    if (!button) {
+      return
+    }
+
+    let code = button.parentElement?.querySelector('pre code')
+    if (!code) {
+      return
+    }
+
+    let text = code.textContent || ''
+    let language = getCodeLanguage(code).trim()
+    let markdown = `\`\`\`${language}\n${text.replace(/\n$/, '')}\n\`\`\``
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(markdown)
+      } else {
+        let textarea = document.createElement('textarea')
+        textarea.value = markdown
+        textarea.setAttribute('readonly', '')
+        textarea.style.position = 'absolute'
+        textarea.style.left = '-9999px'
+        document.body.appendChild(textarea)
+        textarea.select()
+        document.execCommand('copy')
+        textarea.remove()
+      }
+
+      button.textContent = 'Copied'
+      button.setAttribute('data-copy-state', 'success')
+
+      window.setTimeout(() => {
+        button.textContent = 'Copy'
+        button.setAttribute('data-copy-state', 'idle')
+      }, 1600)
+    } catch (e) {
+      console.log(e)
+      button.textContent = 'Failed'
+      button.setAttribute('data-copy-state', 'error')
+
+      window.setTimeout(() => {
+        button.textContent = 'Copy'
+        button.setAttribute('data-copy-state', 'idle')
+      }, 1600)
+    }
+  }
+
   function toggleCommentActionDropdown(id) {
     if (store.commentActionDropdown) {
       setStore('commentActionDropdown', '')
@@ -201,6 +280,7 @@ function CommentListItem(props) {
           class="cwgi-mt-2 cwgi-page-content cwgi-comment-content"
           style="padding-bottom: 0"
           innerHTML={comment.bodyHTML ? comment.bodyHTML : `<pre>${comment.body}</pre>`}
+          onClick={copyCodeFromComment}
           classList={{
             'cwgi-hidden': store.editingCommentId === comment.id || !comment.bodyHTML
           }}

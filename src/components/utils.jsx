@@ -63,6 +63,44 @@ function basicMarkdownToHtml(markdown) {
   return warpParagraphs(markdown)
 }
 
+function decorateCodeBlocks(html) {
+  if (typeof document === 'undefined') {
+    return html
+  }
+
+  let container = document.createElement('div')
+  container.innerHTML = html
+
+  let preBlocks = container.querySelectorAll('pre')
+
+  preBlocks.forEach((pre) => {
+    if (pre.closest('.cwgi-code-block')) {
+      return
+    }
+
+    let code = pre.querySelector('code')
+    if (!code) {
+      return
+    }
+
+    let wrapper = document.createElement('div')
+    wrapper.className = 'cwgi-code-block'
+
+    let button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'cwgi-copy-code-button'
+    button.setAttribute('data-copy-state', 'idle')
+    button.setAttribute('aria-label', 'Copy code')
+    button.textContent = 'Copy'
+
+    pre.parentNode.insertBefore(wrapper, pre)
+    wrapper.appendChild(button)
+    wrapper.appendChild(pre)
+  })
+
+  return container.innerHTML
+}
+
 /**
  * render markdown to html
  * @param markdown
@@ -72,7 +110,7 @@ function basicMarkdownToHtml(markdown) {
  */
 async function renderMarkdown(markdown, id = -1, updated_at = '') {
   if(store.renderMarkdown === false){
-    return basicMarkdownToHtml(markdown)
+    return decorateCodeBlocks(basicMarkdownToHtml(markdown))
   }
 
   let key = ''
@@ -113,7 +151,7 @@ async function renderMarkdown(markdown, id = -1, updated_at = '') {
       body: body
     })
 
-    let remoteText = await resp.text()
+    let remoteText = decorateCodeBlocks(await resp.text())
 
     if (id && updated_at) {
       let timestamp = dayjs(updated_at).unix()
@@ -130,7 +168,7 @@ async function renderMarkdown(markdown, id = -1, updated_at = '') {
     return remoteText
   } catch (e) {
     console.log(e)
-    return basicMarkdownToHtml(markdown)
+    return decorateCodeBlocks(basicMarkdownToHtml(markdown))
   }
 }
 
