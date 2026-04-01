@@ -58,7 +58,7 @@ function inputAndPreview() {
       return 'Please login first'
     }
 
-    return 'Leave a comment here :)'
+    return '在这里留言吧 :)'
   }
 
   return (
@@ -85,21 +85,21 @@ function inputAndPreview() {
           cwgi-leading-5
         "
           >
-            Powered by{' '}
+            由{' '}
             <a href="https://cwgi-docs.jw1.dev/" target="_blank" class="cwgi-text-black dark:cwgi-text-white">
               CWGI
-            </a>
-            , made with{' '}
+            </a> 提供支持
+            , 基于{' '}
             <a target="_blank" class="cwgi-text-black dark:cwgi-text-white" href="https://github.com/features/issues">
               GitHub Issues
-            </a>
-            , please follow the{' '}
+            </a> 构建
+            , 请遵守{' '}
             <a
               target="_blank"
               class="cwgi-text-black dark:cwgi-text-white"
               href="https://docs.github.com/en/site-policy/github-terms/github-community-code-of-conduct"
             >
-              GitHub Community Code of Conduct
+              GitHub 社区行为准则
             </a>
             .
           </div>
