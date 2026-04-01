@@ -133,7 +133,7 @@ function inputAndPreview() {
                 <path d="M10 14l11 -11" />
                 <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
               </svg>
-              Send
+              发送
             </button>
             <button
               disabled
@@ -144,7 +144,7 @@ function inputAndPreview() {
               type="button"
             >
               <IconLoading width={16} height={16} class={'cwgi-mr-2'}></IconLoading>
-              Send
+              发送
             </button>
           </div>
         </form>

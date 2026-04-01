@@ -100,7 +100,7 @@ function commentEditingArea(props) {
                 class="cwgi-rounded-full cwgi-text-sm dark:cwgi-bg-white/10 cwgi-bg-black/10 dark:cwgi-text-white cwgi-text-black/90 cwgi-backdrop-blur cwgi-px-4 cwgi-py-2 cwgi-flex cwgi-items-center disabled:cwgi-opacity-50"
               >
                 <IconX classList={'cwgi-w-4 cwgi-h-4 cwgi-mr-1'}></IconX>
-                Cancel
+                取消
               </button>
               <button
                 type="submit"
@@ -125,7 +125,7 @@ function commentEditingArea(props) {
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <path d="M5 12l5 5l10 -10" />
                 </svg>
-                Confirm
+                确认
               </button>
             </div>
           </form>

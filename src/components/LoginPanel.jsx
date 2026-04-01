@@ -55,7 +55,7 @@ function LoginPanel() {
    * @returns {boolean}
    */
   function logout() {
-    let c = confirm('Are you sure?😯')
+    let c = confirm('你确定吗?😯')
     if (!c) {
       return false
     }
@@ -99,7 +99,7 @@ function LoginPanel() {
                 style={{
                   transform: 'translateX(-50%)',
                   animation: 'slideUp_offset .15s ease',
-                  zIndex: 100,
+                  'z-index': 100,
                 }}
               >
                 <button
@@ -107,7 +107,7 @@ function LoginPanel() {
                   onClick={goToUser}
                 >
                   <IconGitHub class={'cwgi-w-4 cwgi-h-4 cwgi-mr-2'}/>
-                  My GitHub Page
+                  我的Gihub主页
                 </button>
 
                 <button
@@ -129,7 +129,7 @@ function LoginPanel() {
                     <path d="M9 12h12l-3 -3" />
                     <path d="M18 15l3 -3" />
                   </svg>
-                  Logout
+                  退出登录
                 </button>
               </div>
             )}

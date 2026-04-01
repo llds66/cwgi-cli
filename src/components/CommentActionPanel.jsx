@@ -5,7 +5,7 @@ import IconLoading from './IconLoading.jsx'
 const [store, setStore] = useStore()
 
 async function deleteComment(id) {
-  let c = confirm('Are you sure to delete this comment? 😯')
+  let c = confirm('你确定要删除这条评论吗? 😯')
   if (!c) {
     return
   }
@@ -95,7 +95,7 @@ function CommentActionPanel(props) {
               <path d="M16 5l3 3" />
               <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6" />
             </svg>
-            Edit
+            编辑
           </button>
 
           <button
@@ -128,7 +128,7 @@ function CommentActionPanel(props) {
               <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
             </svg>
             <IconLoading visible={store.deletingId === comment.id} width={16} height={16} class={'cwgi-mr-1'}/>
-            Delete
+            删除
           </button>
         </div>
       )}
