@@ -98,7 +98,8 @@ function LoginPanel() {
               cwgi-transition-shadow"
                 style={{
                   transform: 'translateX(-50%)',
-                  animation: 'slideUp_offset .15s ease'
+                  animation: 'slideUp_offset .15s ease',
+                  zIndex: 100,
                 }}
               >
                 <button
